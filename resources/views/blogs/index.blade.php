@@ -11,7 +11,7 @@
 		<p>{{$blog->body}}</p>
 		<a href="{{ url('blogs/category/'.$blog->category)}}"><b>{{$blog->category}}</b></a>
 		<!-- <p>{{$blog->category}}</p> -->
-		<p>{{$blog->updated_at}}</p>
+		<p>{{$blog->created_at->diffForHumans()}}</p>
 	</article>
 
 	@endforeach
