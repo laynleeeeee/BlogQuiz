@@ -2,6 +2,14 @@
 
 @section('content')
 
+@if(count($errors))
+	<div class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		{{$error}}<br>
+		@endforeach
+	</div>
+	@endif
+
 <h2>Blogs</h2>
  <button type="button" class="btn btn-success" onclick="window.location='{{ url("blogs")}}'" style="width: 100%" >Create blog</button>
 <hr>

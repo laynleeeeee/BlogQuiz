@@ -25,7 +25,6 @@ class BlogsController extends Controller
      }
      public function store(){
         $inputs = Request::all();
-
         $rules = [
             'title' => 'required|min:3',
             'body' => "required",
@@ -38,7 +37,6 @@ class BlogsController extends Controller
         ];
 
         $validator = Validator::make(Request::all(), $rules, $err_msgs);
-
         if ($validator->fails()) {
             return redirect()->back()
             ->withInput(Request::all())
@@ -49,6 +47,25 @@ class BlogsController extends Controller
      }
      public function edit($id){
         $inputs = Request::all();
+        $rules = [
+            'title' => 'required|min:3',
+            'body' => "required",
+        ];
+
+        $err_msgs = [
+            'title.required' => 'Blog must have a title',
+            'title.min' => 'Blog title must have atleast 3 character',
+            'body.required' => 'Blog must have a body',
+        ];
+
+        $validator = Validator::make(Request::all(), $rules, $err_msgs);
+        if ($validator->fails()) {
+            return redirect()->back()
+            ->withInput(Request::all())
+            ->withErrors($validator);
+        }
+        
+        $inputs = Request::all();
         $blogs = Blog::find($id);
         $blogs -> fill(Request::all());
         //$article -> title =  $inputs['title'];
@@ -56,6 +73,8 @@ class BlogsController extends Controller
         $blogs->save();
 
         return redirect('blogs');
+
+
      }
      public function category($category){
         $blogs = DB::table('blogs')->where('category', $category)->get();

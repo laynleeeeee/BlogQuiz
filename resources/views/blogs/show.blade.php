@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+
+@if(count($errors))
+	<div class="alert alert-danger">
+		@foreach($errors->all() as $error)
+		{{$error}}<br>
+		@endforeach
+	</div>
+	@endif
+	
 {!! Form::open()!!}
 	{!! Form::label('title', 'Title:') !!}
 	{!! Form::text('title', $blogs -> title, ['class' => 'form-control', 'placeholder' => 'ex. Blog title']) !!}
